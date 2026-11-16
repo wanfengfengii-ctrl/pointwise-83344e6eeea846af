@@ -1,5 +1,6 @@
 import hashlib
 import json
+import boundaries
 from samples import make, batch, timeout_demo
 
 
@@ -173,6 +174,9 @@ def main():
             separators=(",", ":")).encode()).hexdigest() for name, trace in traces.items()}
     assert got == FROZEN, got
     print("BASELINE_OK", len(traces), "full event recordings")
+    # Structure is verified independently, but only alongside the real
+    # SQLite/recorder business regression above.
+    boundaries.verify_structure()
 
 
 if __name__ == "__main__":
